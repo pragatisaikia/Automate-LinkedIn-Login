@@ -1,0 +1,39 @@
+from selenium import webdriver
+from selenium.webdriver.common.keys import Keys
+from selenium.webdriver.common.by import By
+import time
+from datetime import datetime 
+
+driver = webdriver.Chrome()
+url = 'https://www.linkedin.com/home'
+
+driver.get(url)
+time.sleep(3)
+email = driver.find_element(By.ID, "session_key")
+password = driver.find_element(By.ID, "session_password")
+
+# password = driver.find_element("//input[@name = 'session_password]")
+
+
+with open('/home/pragati/Desktop/file.txt', 'r') as file:
+    for line in file:
+        key, value = line.strip().split(': ')
+        if key == 'username':
+            username = value
+        elif key == 'password':
+            passcode= value
+email.send_keys(username)
+password.send_keys(passcode)
+
+time.sleep(1)
+
+submit = driver.find_element(By.XPATH,"//button[@type = 'submit']").click()
+
+time.sleep(2)
+
+#if we want to create a post we can navigate
+'''
+create_post_button = driver.find_element(By.XPATH, "//main//div[1]//div[2]//div[2]//button")
+create_post_button.click()
+time.sleep(10)
+'''
